@@ -6,43 +6,20 @@ import dingaling from "../assets/sounds/dingaling.mp3";
 
 import {
   POMODORO,
+  TWENTY_FIVE_MIN,
+  settings,
   SHORT_BREAK,
   LONG_BREAK,
-  FIVE_MIN,
-  FIFTEEN_MIN,
-  TWENTY_FIVE_MIN,
 } from "./constants";
-
-const settings = {
-  [POMODORO]: {
-    time: TWENTY_FIVE_MIN,
-    background: "#F3E4C0",
-    frontBackground: "#FB6A69",
-    textColor: "#FFFFFF",
-    next: SHORT_BREAK,
-  },
-  [SHORT_BREAK]: {
-    time: FIVE_MIN,
-    background: "#DCE4E8",
-    frontBackground: "#FFD65A",
-    textColor: "#FFFFFF",
-    next: LONG_BREAK,
-  },
-  [LONG_BREAK]: {
-    time: FIFTEEN_MIN,
-    background: "#91B4E8",
-    frontBackground: "#FDFDFD",
-    textColor: "#34363C",
-    next: POMODORO,
-  },
-};
 
 const Pomos = () => {
   const [start, setStart] = useState(false);
   const [time, setTime] = useState(TWENTY_FIVE_MIN);
   const [mode, setMode] = useState(POMODORO);
 
-  const nextMode = (mode) => {
+  const [pomodoros, setPomodoros] = useState(4);
+
+  const setNextMode = (mode) => {
     setTime(settings[mode].time);
     setStart(false);
     setMode(mode);
@@ -54,7 +31,20 @@ const Pomos = () => {
       let id = setInterval(() => {
         if (time - 1 === 0) {
           notification.play();
-          nextMode(settings[mode].next);
+          let nextMode;
+          if (mode !== POMODORO) {
+            nextMode = POMODORO;
+          } else {
+            if (pomodoros > 1) {
+              nextMode = SHORT_BREAK;
+              setPomodoros(pomodoros - 1);
+            } else {
+              nextMode = LONG_BREAK;
+              setPomodoros(4);
+            }
+          }
+
+          setNextMode(nextMode);
         } else {
           setTime(time - 1);
         }
@@ -82,13 +72,13 @@ const Pomos = () => {
         flexDirection: "column",
       }}
     >
-      <CasetteButtons {...{ mode, nextMode }} />
+      <CasetteButtons {...{ mode, setNextMode }} />
       <Clock
         time={time}
         background={settings[mode].frontBackground}
         textColor={settings[mode].textColor}
       />
-      <div className="m-5">
+      <div className="m-10">
         <Button
           onClickHandler={() => {
             setStart(!start);

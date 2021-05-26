@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "./Button";
-import {
-  POMODORO,
-  SHORT_BREAK,
-  LONG_BREAK,
-  FIVE_MIN,
-  FIFTEEN_MIN,
-  TWENTY_FIVE_MIN,
-} from "./constants";
+import { POMODORO, SHORT_BREAK, LONG_BREAK } from "./constants";
 
-const CasetteButtons = ({ mode, nextMode }) => {
+const CasetteButtons = ({ mode, setNextMode }) => {
   const [pomoPressed, setPomoPressed] = useState(true);
   const [shortPressed, setShortPressed] = useState(false);
   const [longPressed, setLongPressed] = useState(false);
@@ -28,7 +21,7 @@ const CasetteButtons = ({ mode, nextMode }) => {
     <div className="m-5">
       <Button
         onClickHandler={() => {
-          nextMode(POMODORO);
+          setNextMode(POMODORO);
           changeMode(POMODORO);
         }}
         pressedParent={pomoPressed}
@@ -37,7 +30,7 @@ const CasetteButtons = ({ mode, nextMode }) => {
       </Button>
       <Button
         onClickHandler={() => {
-          nextMode(SHORT_BREAK);
+          setNextMode(SHORT_BREAK);
           changeMode(SHORT_BREAK);
         }}
         pressedParent={shortPressed}
@@ -46,7 +39,7 @@ const CasetteButtons = ({ mode, nextMode }) => {
       </Button>
       <Button
         onClickHandler={() => {
-          nextMode(LONG_BREAK);
+          setNextMode(LONG_BREAK);
           changeMode(LONG_BREAK);
         }}
         pressedParent={longPressed}
