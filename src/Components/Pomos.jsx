@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import YouTube from "react-youtube";
 import Button from "./Button";
 import Clock from "./Clock";
 import CasetteButtons from "./CasetteButtons";
@@ -72,6 +73,19 @@ const Pomos = () => {
         flexDirection: "column",
       }}
     >
+      <div className="mb-5">
+        <YouTube
+          videoId="5qap5aO4i9A"
+          opts={{
+            height: "350",
+            width: "600",
+            playerVars: {
+              // https://developers.google.com/youtube/player_parameters
+              autoplay: 1,
+            },
+          }}
+        />
+      </div>
       <CasetteButtons {...{ mode, setNextMode }} />
       <Clock
         time={time}
