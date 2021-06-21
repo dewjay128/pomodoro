@@ -19,7 +19,6 @@ const Pomos = () => {
   const [mode, setMode] = useState(POMODORO);
   const notification = new Audio(dingaling);
 
-  console.log("hello");
   const [pomodoros, setPomodoros] = useState(4);
 
   const setNextMode = (mode) => {
