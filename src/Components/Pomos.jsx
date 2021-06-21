@@ -17,7 +17,9 @@ const Pomos = () => {
   const [start, setStart] = useState(false);
   const [time, setTime] = useState(TWENTY_FIVE_MIN);
   const [mode, setMode] = useState(POMODORO);
+  const notification = new Audio(dingaling);
 
+  console.log("hello");
   const [pomodoros, setPomodoros] = useState(4);
 
   const setNextMode = (mode) => {
@@ -27,7 +29,6 @@ const Pomos = () => {
   };
 
   useEffect(() => {
-    const notification = new Audio(dingaling);
     if (start) {
       let id = setInterval(() => {
         if (time - 1 === 0) {

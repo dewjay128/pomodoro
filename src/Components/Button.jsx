@@ -5,6 +5,8 @@ import releaseSound from "../assets/sounds/button-release.wav";
 
 const Button = ({ onClickHandler, pressedParent, children }) => {
   const [pressed, setPressed] = useState(false);
+  const release = new Audio(releaseSound);
+  const press = new Audio(pressSound);
 
   // raise button if another is pressed
   const styles = pressed
@@ -16,8 +18,6 @@ const Button = ({ onClickHandler, pressedParent, children }) => {
 
   const playAudio = () => {
     setPressed(!pressed);
-    const release = new Audio(releaseSound);
-    const press = new Audio(pressSound);
     pressed ? release.play() : press.play();
   };
 
